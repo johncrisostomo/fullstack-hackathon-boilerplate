@@ -3,7 +3,10 @@ import User from '../models/user';
 import config from '../config';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 
-const jwtOptions = {};
+const jwtOptions = {
+  jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+  secretOrKey: config.secret,
+};
 
 const jwtLogin = new Strategy(jwtOptions, (payload, done) => {
   let user;
@@ -20,3 +23,5 @@ const jwtLogin = new Strategy(jwtOptions, (payload, done) => {
     done(null, false);
   }
 });
+
+passport.use(jwtLogin);
