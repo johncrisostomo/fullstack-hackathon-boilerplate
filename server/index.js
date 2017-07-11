@@ -1,8 +1,11 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import http from 'http';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import router from './router';
+
+mongoose.connect('mongodb://localhost:3031/auth', { useMongoClient: true });
 
 const app = express();
 
