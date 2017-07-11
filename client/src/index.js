@@ -5,6 +5,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import App from './components/app';
+import SignIn from './components/auth/signin';
 import reducers from './reducers';
 
 const createStoreWithMiddleware = applyMiddleware()(createStore);
@@ -12,7 +13,10 @@ const createStoreWithMiddleware = applyMiddleware()(createStore);
 ReactDOM.render(
   <Router>
     <Provider store={createStoreWithMiddleware(reducers)}>
-      <Route path="/" component={App} />
+      <div>
+        <Route path="/" component={App} />
+        <Route path="/signin" component={SignIn} />
+      </div>
     </Provider>
   </Router>,
   document.querySelector('.container')
