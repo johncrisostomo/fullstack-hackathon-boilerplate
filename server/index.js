@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import router from './router';
 
-mongoose.connect('mongodb://localhost:3031/auth', { useMongoClient: true });
+mongoose.connect('mongodb://localhost:27017/auth', { useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 const app = express();
