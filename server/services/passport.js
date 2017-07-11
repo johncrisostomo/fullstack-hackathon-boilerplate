@@ -9,9 +9,10 @@ const localLogin = new LocalStrategy(
   localOptions,
   async (email, password, done) => {
     let user;
+    let isMatch;
 
     try {
-      user = User.findOne({ email });
+      user = await User.findOne({ email });
     } catch (findError) {
       return done(findError);
     }
@@ -19,6 +20,18 @@ const localLogin = new LocalStrategy(
     if (!user) {
       return done(null, false);
     }
+
+    try {
+      isMatch = await user.comparePassword(password);
+    } catch (compareError) {
+      return done(compareError);
+    }
+
+    if (!isMatch) {
+      return done(null, false);
+    }
+
+    return done(null, user);
   }
 );
 
@@ -44,3 +57,4 @@ const jwtLogin = new Strategy(jwtOptions, (payload, done) => {
 });
 
 passport.use(jwtLogin);
+passport.use(localLogin);
