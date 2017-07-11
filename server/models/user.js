@@ -5,9 +5,9 @@ const userSchema = new Schema({
   email: {
     type: String,
     unique: true,
-    lowercase: true,
+    lowercase: true
   },
-  password: String,
+  password: String
 });
 
 userSchema.pre('save', function(next) {
@@ -28,6 +28,18 @@ userSchema.pre('save', function(next) {
     });
   });
 });
+
+userSchema.methods.comparePassword = function(candidatePassword) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+      if (err) {
+        reject(err);
+      }
+
+      resolve(isMatch);
+    });
+  });
+};
 
 const Model = mongoose.model('user', userSchema);
 
