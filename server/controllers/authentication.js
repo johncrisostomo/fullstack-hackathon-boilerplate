@@ -1,4 +1,11 @@
+import jwt from 'jwt-simple';
+import config from '../config';
 import User from '../models/user';
+
+const tokenForUser = user => {
+  const timestamp = new Date().getTime();
+  return jwt.encode({ sub: user.id, iat: timestamp }, config.secret);
+};
 
 export const signup = async (req, res, next) => {
   const { email, password } = req.body;
@@ -28,5 +35,5 @@ export const signup = async (req, res, next) => {
     return next(err);
   }
 
-  res.json({ success: true });
+  res.json({ token: tokenForUser(newUser) });
 };
