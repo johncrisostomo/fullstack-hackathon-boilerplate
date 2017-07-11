@@ -6,6 +6,7 @@ import morgan from 'morgan';
 import router from './router';
 
 mongoose.connect('mongodb://localhost:3031/auth', { useMongoClient: true });
+mongoose.Promise = global.Promise;
 
 const app = express();
 
