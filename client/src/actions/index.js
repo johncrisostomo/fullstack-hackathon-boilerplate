@@ -47,3 +47,9 @@ export const authError = error => {
     payload: error
   };
 };
+
+export const fetchMessage = () => dispatch => {
+  axios
+    .get(ROOT_URL, { headers: { authorization: localStorage.getItem(token) } })
+    .then(response => {});
+};
