@@ -8,6 +8,7 @@ class Signup extends Component {
   }
 
   renderForm({ input, label, type, className, meta: { touched, error } }) {
+    console.log(error);
     return (
       <div>
         <label>
@@ -15,9 +16,11 @@ class Signup extends Component {
         </label>
         <div>
           <input {...input} type={type} className={className} />
-          <span>
-            {error}
-          </span>
+          {touched &&
+            error &&
+            <div className="error">
+              {error}
+            </div>}
         </div>
       </div>
     );
