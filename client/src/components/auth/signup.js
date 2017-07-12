@@ -49,4 +49,14 @@ class Signup extends Component {
   }
 }
 
-export default reduxForm({ form: 'signup' })(Signup);
+const validate = formProps => {
+  const errors = {};
+
+  if (formProps.password !== formProps.passwordConfirm) {
+    errors.password = 'Passwords do not match';
+  }
+
+  return errors;
+};
+
+export default reduxForm({ form: 'signup', validate })(Signup);
