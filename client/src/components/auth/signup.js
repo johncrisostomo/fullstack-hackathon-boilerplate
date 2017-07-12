@@ -8,21 +8,18 @@ class Signup extends Component {
   }
 
   renderForm({ input, label, type, className, meta: { touched, error } }) {
-    console.log(error);
     return (
-      <div>
+      <fieldset className="form-group">
         <label>
           {label}
         </label>
-        <div>
-          <input {...input} type={type} className={className} />
-          {touched &&
-            error &&
-            <div className="error">
-              {error}
-            </div>}
-        </div>
-      </div>
+        <input {...input} type={type} className={className} />
+        {touched &&
+          error &&
+          <div className="error">
+            {error}
+          </div>}
+      </fieldset>
     );
   }
 
@@ -31,35 +28,29 @@ class Signup extends Component {
 
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
-        <fieldset className="form-group">
-          <Field
-            label="Email:"
-            name="email"
-            className="form-control"
-            type="email"
-            component={this.renderForm}
-          />
-        </fieldset>
+        <Field
+          label="Email:"
+          name="email"
+          className="form-control"
+          type="email"
+          component={this.renderForm}
+        />
 
-        <fieldset className="form-group">
-          <Field
-            label="Password:"
-            name="password"
-            className="form-control"
-            type="password"
-            component={this.renderForm}
-          />
-        </fieldset>
+        <Field
+          label="Password:"
+          name="password"
+          className="form-control"
+          type="password"
+          component={this.renderForm}
+        />
 
-        <fieldset className="form-group">
-          <Field
-            label="Confirm Password:"
-            name="passwordConfirm"
-            className="form-control"
-            type="password"
-            component={this.renderForm}
-          />
-        </fieldset>
+        <Field
+          label="Confirm Password:"
+          name="passwordConfirm"
+          className="form-control"
+          type="password"
+          component={this.renderForm}
+        />
         <button action="submit" className="btn btn-primary">
           Sign up!
         </button>
@@ -70,6 +61,18 @@ class Signup extends Component {
 
 const validate = formProps => {
   const errors = {};
+
+  if (!formProps.email) {
+    errors.email = 'Please enter an email';
+  }
+
+  if (!formProps.password) {
+    errors.password = 'Please enter a password';
+  }
+
+  if (!formProps.passwordConfirm) {
+    errors.passwordConfirm = 'Please enter a password confirmation';
+  }
 
   if (formProps.password !== formProps.passwordConfirm) {
     errors.password = 'Passwords do not match';
