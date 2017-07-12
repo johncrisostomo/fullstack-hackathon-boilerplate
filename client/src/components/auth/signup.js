@@ -7,38 +7,54 @@ class Signup extends Component {
     console.log(email, password, passwordConfirm);
   }
 
+  renderForm({ input, label, type, className, meta: { touched, error } }) {
+    return (
+      <div>
+        <label>
+          {label}
+        </label>
+        <div>
+          <input {...input} type={type} className={className} />
+          <span>
+            {error}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <fieldset className="form-group">
-          <label>Email : </label>
           <Field
+            label="Email:"
             name="email"
             className="form-control"
             type="email"
-            component="input"
+            component={this.renderForm}
           />
         </fieldset>
 
         <fieldset className="form-group">
-          <label>Password: </label>
           <Field
+            label="Password:"
             name="password"
             className="form-control"
             type="password"
-            component="input"
+            component={this.renderForm}
           />
         </fieldset>
 
         <fieldset className="form-group">
-          <label>Confirm Password: </label>
           <Field
+            label="Confirm Password:"
             name="passwordConfirm"
             className="form-control"
             type="password"
-            component="input"
+            component={this.renderForm}
           />
         </fieldset>
         <button action="submit" className="btn btn-primary">
