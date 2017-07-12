@@ -21,7 +21,7 @@ export default function(ComposedComponent) {
   }
 
   const mapStateToProps = state => {
-    return { authenticated: state.authenticated };
+    return { authenticated: state.auth.authenticated };
   };
 
   return connect(mapStateToProps)(Authentication);
