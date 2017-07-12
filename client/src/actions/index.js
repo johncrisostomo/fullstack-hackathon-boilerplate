@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { AUTH_USER, AUTH_ERROR } from './types';
+import { AUTH_USER, AUTH_ERROR, UNAUTH_USER } from './types';
 
 const ROOT_URL = 'http://localhost:3090';
 
@@ -16,6 +16,14 @@ export const signinUser = ({ email, password }, history) => dispatch => {
     .catch(() => {
       dispatch(authError('Bad Login Info'));
     });
+};
+
+export const signoutUser = () => {
+  localStorage.removeItem('token');
+
+  return {
+    type: UNAUTH_USER,
+  };
 };
 
 export const authError = error => {
