@@ -1,0 +1,14 @@
+version: "3"
+services:
+  client:
+    build: ./client
+    ports:
+      - "8000:8080"
+  server:
+    build: ./server
+    expose:
+      - "3090"
+  db:
+    image: mongo:latest
+    expose:
+      - "27017"
