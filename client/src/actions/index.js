@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { AUTH_USER, AUTH_ERROR, UNAUTH_USER, FETCH_MESSAGE } from './types';
 
-const ROOT_URL = 'http://server:3090';
+const ROOT_URL = 'http://localhost:3090';
 
 export const signinUser = ({ email, password }, history) => dispatch => {
   axios
@@ -37,21 +37,21 @@ export const signoutUser = () => {
   localStorage.removeItem('token');
 
   return {
-    type: UNAUTH_USER
+    type: UNAUTH_USER,
   };
 };
 
 export const authError = error => {
   return {
     type: AUTH_ERROR,
-    payload: error
+    payload: error,
   };
 };
 
 export const fetchMessage = () => dispatch => {
   axios
     .get(ROOT_URL, {
-      headers: { authorization: localStorage.getItem('token') }
+      headers: { authorization: localStorage.getItem('token') },
     })
     .then(response => {
       dispatch({ type: FETCH_MESSAGE, payload: response.data.message });
